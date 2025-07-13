@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct Hexagonal: Shape {
     func path(in rect: CGRect) -> Path {
         return Path {path in
@@ -24,32 +23,9 @@ struct Hexagonal: Shape {
     }
 }
 
-enum Choice: Int, Identifiable {
-    
-    var id: Int {
-        rawValue
-    }
-    case success, failure
-}
-
-struct ContentView: View {
-    @State public var symbols = ["eating", "happy", "love"]
-    @State public var nums = [0, 1, 2]
-    @State public var counter = 0
-    @State private var showingAlert: Choice?
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
+struct HexagonalUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Hexagonal()
+            .frame(width: 120, height: 100, alignment: .center)
     }
 }
