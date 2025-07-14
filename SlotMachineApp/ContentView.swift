@@ -49,6 +49,107 @@ struct ContentView: View {
             VStack(alignment: .center, spacing: 80) {
                 HStack {
                     Image("fire")
+                        .resizable()
+                        .scaledToFit()
+                        .shadow(color: .orange, radius: 1, y: 3)
+                    Text("Slot Machine")
+                        .font(.system(size: 30))
+                        .fontWeight(.black)
+                        .shadow(color: .orange, radius: 1, y: 3)
+                    Image("fire")
+                        .resizable()
+                        .scaledToFit()
+                        .shadow(color: .orange, radius: 1, y: 3)
+                    
+                }.frame(width: .infinity, height: 50, alignment: .center)
+                VStack(spacing: 15){
+                    HStack(spacing: 35){
+                        Hexagon()
+                            .fill(Color.white.opacity(0.8))
+                            .frame(width: 100, height: 120, alignment: .center)
+                            .overlay(
+                                Image(symbols[nums[0]])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80, height: 70, alignment: .center)
+                                    .shadow(color: .gray, radius: 4, x: 4, y: 5)
+                            )
+                        Hexagon()
+                            .fill(Color.white.opacity(0.8))
+                            .frame(width: 100, height: 120, alignment: .center)
+                            .overlay(Image(symbols[nums[1]])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 70, alignment: .center)
+                                .shadow(color: .gray, radius: 4, x: 4, y: 5)
+                            )
+
+                    }
+                    Hexagon()
+                        .fill(Color.white.opacity(0.8))
+                        .frame(width: 100, height: 120, alignment: .center)
+                        .overlay(Image(symbols[nums[2]])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 70, alignment: .center)
+                            .shadow(color: .gray, radius: 4, x: 4, y: 5)
+                        )
+                    HStack(spacing: 35){
+                        Hexagon()
+                            .fill(Color.white.opacity(0.8))
+                            .frame(width: 100, height: 120, alignment: .center)
+                            .overlay(Image(symbols[nums[0]])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 70, alignment: .center)
+                                .shadow(color: .gray, radius: 4, x: 4, y: 5)
+                            )
+                        Hexagon()
+                            .fill(Color.white.opacity(0.8))
+                            .frame(width: 100, height: 120, alignment: .center)
+                            .overlay(Image(symbols[nums[1]])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 70, alignment: .center)
+                                .shadow(color: .gray, radius: 4, x: 4, y: 5)
+                            )
+                    }
+                }
+                Button {
+                    self.nums[0] = Int.random(in: 0...self.symbols.count - 1)
+                    self.nums[1] = Int.random(in: 0...self.symbols.count - 1)
+                    self.nums[2] = Int.random(in: 0...self.symbols.count - 1)
+                    counter += 1
+                    if self.nums[0] == self.nums[1] && self.nums[1] == self.nums[2] {
+                        self.showingAlert = .success
+                        counter = 0
+                        
+                    }
+                    if counter > 5 {
+                        self.showingAlert = .failure
+                        counter = 0
+                        
+                    }
+                                        
+                }label: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color("color"))
+                        .overlay(Text("Spin")
+                            .fontWeight(.black)
+                            .font(.title3)
+                        )
+                        .foregroundColor(.black)
+                        .frame(width: 200, height: 40, alignment: .center)
+                        .shadow(color: .gray, radius: 1, y: 4)
+                }
+                .alert(item: $showingAlert) { alert -> Alert in
+                    switch alert {
+                    case .success:
+                        return Alert(title: Text("Yahhh! you won"), message: Text("Born with the charm"), dismissButton: .cancel())
+                    case .failure:
+                        return Alert(title: Text("Ooopppsss !"), message: Text("Better luck next time"), dismissButton: .cancel())
+                        
+                    }
                 }
             }
         }
